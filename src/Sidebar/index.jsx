@@ -142,7 +142,7 @@ export default function Sidebar() {
                                 <h3>Dummy user list</h3>
                                 {userlist && userlist?.length && <>
                                 <ul>
-                                    {userlist.map(item => <li key={item.id} style={{margin: '0 0 2em',borderBottom:'1px solid #f99'}}>
+                                    {userlist.map(item => <li key={item.id} style={{margin: '1em 0 2em',borderBottom:'1px solid #f99'}}>
                                         <p>FullName: {item.firstName} {item.lastName}</p>
                                         <p>Age: {item.age}</p>
                                         <p>Email: {item.email}</p>
