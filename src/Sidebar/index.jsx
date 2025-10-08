@@ -1,10 +1,10 @@
-import React from 'react';
-import MainNav from './main-nav';
+import { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MainList from './main-list';
 import { PortalDiv } from './portal';
+import { useState } from 'react';
 
 const mockdata = [
     {
@@ -112,6 +112,17 @@ const mockdata = [
 ];
 
 export default function Sidebar() {
+    const [userlist, setUserlist] = useState(null)
+    const fetchUserList = () => {
+        fetch(import.meta.env.VITE_DUMMY_API_URL)
+        .then(res => res.json())
+        .then(data=> setUserlist(data.users.slice(0,4)));
+    }
+
+    useEffect(() => {
+        fetchUserList()
+    }, []);
+
     return (
         <div>
             <div className='main-container'>
@@ -127,7 +138,18 @@ export default function Sidebar() {
                         <Col xs={10} className='content-container'>
                             <h2>Content</h2>
                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga voluptatum perferendis nisi doloribus magnam quibusdam quod sunt labore ut. Ea possimus quas vel fugit doloribus amet officiis ut sunt consequuntur.</p>
-
+                            <section>
+                                <h3>Dummy user list</h3>
+                                {userlist && userlist?.length && <>
+                                <ul>
+                                    {userlist.map(item => <li key={item.id} style={{margin: '0 0 2em',borderBottom:'1px solid #f99'}}>
+                                        <p>FullName: {item.firstName} {item.lastName}</p>
+                                        <p>Age: {item.age}</p>
+                                        <p>Email: {item.email}</p>
+                                    </li>)}
+                                </ul>
+                                </>}
+                            </section>
                         </Col>
                     </Row>
 
